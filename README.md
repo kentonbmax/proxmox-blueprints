@@ -9,8 +9,8 @@ Proxmox examples using Terraform and Ansible
 1. Run `./cloud-template.sh`    
 
 ## References and motivations
-[Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
-[Proxmox Templates](https://pve.proxmox.com/wiki/VM_Templates_and_Clones)
+- [Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
+- [Proxmox Templates](https://pve.proxmox.com/wiki/VM_Templates_and_Clones)
 
 ## Other Work
 [Learn Typescript Node Templates](https://pve.proxmox.com/wiki/VM_Templates_and_Clones)
