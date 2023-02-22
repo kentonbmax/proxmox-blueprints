@@ -10,7 +10,7 @@ read -r -p 'Setup for Asible? (y|n): ' ansb
 
 if $ansb -eq 'y'
 then
-    sh ./setup-ansbile-image.sh
+/bin/bash ./setup-ansbile-image.sh
 fi
 
 # we might be on different storage types
