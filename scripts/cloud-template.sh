@@ -15,9 +15,9 @@ fi
 
 # we might be on different storage types
 read -r -p 'Storage Type? (zfs|lvm): ' storage_type
-echo 'You set storage type: $storage_type'
+echo 'You set storage type: ' $storage_type
 
-full_storage='local-$storage_type'
+full_storage=local-$storage_type
 
 # Create the VM
 qm create 9001 --memory 2048 --name ubuntu2204-ansible --net0 virtio,bridge=vmbr0
