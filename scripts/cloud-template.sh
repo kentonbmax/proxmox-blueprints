@@ -3,14 +3,14 @@ image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.
 wget $image
 
 imagename=echo $(basename $image)
-echo "imagename:: $imagename"
+echo "imagename:: " $imagename
 qemu-img resize focal-server-cloudimg-amd64.img 20g
 # configure ansible?
 read -r -p 'Setup for Asible? (y|n): ' ansb
 
 if $ansb -eq 'y'
 then
-    sh ./script.sh
+    sh ./setup-ansbile-image.sh
 fi
 
 # we might be on different storage types
