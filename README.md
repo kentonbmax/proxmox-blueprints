@@ -6,7 +6,10 @@ Proxmox examples using Terraform and Ansible
    `wget https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/cloud-template.sh`
    `wget https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/setup-ansible-image.sh`
 1. Give permission `chmod +x *.sh`
-1. Run `./cloud-template.sh`    
+1. (Optional) Running Ansible
+   1. Create in the home directory a 4096 rsa key for ssh in a file named ansbile `ssh-keygen -t rsa -b 4096`
+1. Run `./cloud-template.sh`
+
 
 ## References and motivations
 - [Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
