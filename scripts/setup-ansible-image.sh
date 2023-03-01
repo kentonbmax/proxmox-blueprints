@@ -2,12 +2,13 @@
 apt install libguestfs-tools
 
 # sshkey gen
-echo "Generate Asible SSH key? (y|n): "
-read sshgen
-if [[ $sshgen == "y" ]]
-then
-    ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansible -q -N ""
-fi
+# echo "Generate Asible SSH key? (y|n): "
+# read sshgen
+# if [[ $sshgen == "y" ]]
+# then
+#     ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansible -q -N ""
+# fi
+
 read -r -p 'Give me a imagename: ' value
 printf 'You gave me [%s].\n' "$value"
 virt-customize -a $value --update
