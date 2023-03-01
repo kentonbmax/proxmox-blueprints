@@ -2,8 +2,9 @@
 apt install libguestfs-tools
 
 # sshkey gen
-read -r -p 'Generate Asible SSH key? (y|n): ' sshgen
-if $sshgen -eq 'y'
+echo "Generate Asible SSH key? (y|n): "
+read sshgen
+if [[ $sshgen == "y" ]]
 then
     ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansible -q -N ""
 fi

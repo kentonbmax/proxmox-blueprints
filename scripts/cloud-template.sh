@@ -1,15 +1,14 @@
 image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
-wget $image
+# no clobber
+wget -nc $image
 
-imagename=echo $(basename $image)
-echo "imagename:: $imagename"
 qemu-img resize focal-server-cloudimg-amd64.img 20g
 # configure ansible?
 read -r -p 'Setup for Asible? (y|n): ' ansb
-if $ansb -eq 'y'
+if [[ $ansb == 'y' ]]
 then
-    sh ./script.sh
+    sh ./script.sh 
 fi
 
 # Create the VM

@@ -1,7 +1,9 @@
-Todo:
+# Todo:
 
-automate proxmox setup.
+# automate proxmox setup.
 
-- Firewall
-- cpu for reduced power
-- Cluster?
+# - Firewall
+# - cpu for reduced power
+# - Cluster?
+# set powersave mode
+echo $()
