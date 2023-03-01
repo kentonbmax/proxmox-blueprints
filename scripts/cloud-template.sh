@@ -8,7 +8,7 @@ qemu-img resize focal-server-cloudimg-amd64.img 20g
 read -r -p 'Setup for Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]];
 then
-    sh "script.sh"
+    sh "setup-ansible-image.sh"
 fi
 
 # Create the VM
