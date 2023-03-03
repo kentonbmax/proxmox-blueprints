@@ -1,9 +1,9 @@
 #!/bin/bash
 apt install libguestfs-tools
 
-value=echo $(basename $image)
+value=$(basename $image)
 
-echo "setting up ansible for " $value
+echo "setting up ansible for ${value}"
 virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 virt-customize -a $value --run-command 'useradd --shell /bin/bash ansible'
