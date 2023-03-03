@@ -1,16 +1,14 @@
 image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
-wget $image
+# no clobber
+wget -nc $image
 
-imagename=echo $(basename $image)
-echo "imagename:: " $imagename
-qemu-img resize focal-server-cloudimg-amd64.img 20g
+qemu-img resize $value 20g
 # configure ansible?
 read -r -p 'Setup for Asible? (y|n): ' ansb
-
-if $ansb -eq 'y'
+if [[ $ansb == 'y' ]]
 then
-/bin/bash ./setup-ansbile-image.sh
+    source "setup-ansible-image.sh"
 fi
 
 # we might be on different storage types
@@ -21,7 +19,7 @@ full_storage=local-$storage_type
 
 # Create the VM
 qm create 9001 --memory 2048 --name ubuntu2204-ansible --net0 virtio,bridge=vmbr0
-qm importdisk 9001 focal-server-cloudimg-amd64.img $full_storage
+qm importdisk 9001 $value local-lvm
 # Configure the VM
 qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
 qm set 9001 --ide2 $full_storage:cloudinit

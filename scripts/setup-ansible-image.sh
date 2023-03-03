@@ -1,14 +1,7 @@
 #!/bin/bash
 apt install libguestfs-tools
 
-# sshkey gen
-read -r -p 'Generate Asible SSH key? (y|n): ' sshgen
-if $sshgen -eq 'y'
-then
-    ssh-keygen -t rsa -b 4096 -f ~/.ssh/ansible -q -N ""
-fi
-read -r -p 'Give me a imagename: ' value
-printf 'You gave me [%s].\n' "$value"
+echo "setting up ansible for ${value}"
 virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 virt-customize -a $value --run-command 'useradd --shell /bin/bash ansible'
