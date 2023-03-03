@@ -1,8 +1,6 @@
 #!/bin/bash
 apt install libguestfs-tools
 
-value=$(basename $image)
-
 echo "setting up ansible for ${value}"
 virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
