@@ -10,6 +10,9 @@ Proxmox examples using Terraform and Ansible
 1. Run `./cloud-template.sh`
 1. (Optional) Running Ansible
    1. Create in the home directory a 4096 rsa key for ssh in a file named ansbile `ssh-keygen -t rsa -b 4096`
+1. GUI - CloudInit tab set networking DHCP = true
+1. Right click 9001 and convert to template. 
+1. Ready to clone. 
    
 ## References and motivations
 - [Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
