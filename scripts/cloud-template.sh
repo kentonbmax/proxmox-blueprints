@@ -3,6 +3,8 @@ image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.
 # no clobber
 wget -nc $image
 
+value=$(basename $image)
+
 qemu-img resize $value 20g
 # configure ansible?
 read -r -p 'Setup for Asible? (y|n): ' ansb
