@@ -21,7 +21,7 @@ full_storage=local-$storage_type
 
 # Create the VM
 qm create 9001 --memory 2048 --name ubuntu2204-ansible --net0 virtio,bridge=vmbr0
-qm importdisk 9001 $value local-lvm
+qm importdisk 9001 $value $full_storage
 # Configure the VM
 qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
 qm set 9001 --ide2 $full_storage:cloudinit
