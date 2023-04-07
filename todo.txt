@@ -1,0 +1,2 @@
+- ssh key instructions
+- environment variables for tf. 

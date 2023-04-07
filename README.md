@@ -14,6 +14,10 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 - Ease of use. 
 
 ## Getting Started
+
+### Pre-Requisits
+
+### Creating a VM Template
 > The scripts in the Scripts folder are designed to run from the proxmox shell.
 1. Grab your ansible ssh public key. Put it in a file, `~/.ssh/ansible.pub` on proxmox
 1. Transfer the contents of the script to your proxmox using the following:
@@ -26,7 +30,7 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 1. GUI - CloudInit tab set networking DHCP = true
 1. Right click 9001 and convert to template. 
 1. Ready to clone. See [TF Section](tf/README.md)
-   1. Add [token and permissions](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs) through ProxMox UI
+
    
    
 ## References and motivations
