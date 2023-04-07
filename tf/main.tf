@@ -25,9 +25,9 @@ variable "proxmox_template_name" {
   default = "ubuntu2204-ansible"
 }
 
-// todo create one for storage and map. Update readme with this and the one above specifics
-variable "storage-map" {
-  default = "ubuntu2204-ansible"
+# the storage you want to use. Probably not local. 
+variable "proxmox_storage" {
+  default = "local"
 }
 
 # resource is formatted to be "[type]" "[entity_name]" so in this case
@@ -56,7 +56,7 @@ resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
     slot = 0
     size = "20G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = var.proxmox_storage
     ssd = 1
   }
 
