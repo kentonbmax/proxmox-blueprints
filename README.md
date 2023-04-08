@@ -13,6 +13,9 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 - Build more, rely less on UI.
 - Ease of use. 
 
+# Hardware
+- Dell 7810T - The dual cpu setup and ability to accept 2400 DDR4 ram makes this a prime choice for ProxMox Hypervisor
+
 ## Getting Started
 
 ### Pre-Requisits
