@@ -4,3 +4,4 @@ pveum user add terraform@pve
 pveum aclmod / -user terraform@pve -role TerraformProv
 
 # Set Power State Here 
+# todo..

@@ -1,0 +1,14 @@
+.DS_Store
+*.hcl
+.terraform
+*.log
+*.tfstate
+**/terraform.tfstart.d/
+*.tfstate.backup
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
