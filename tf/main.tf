@@ -5,6 +5,8 @@ locals {
       { 
         type = "system" 
         name = "sys1"
+        cpu_cores = 4
+        memory = 
       },
       { 
         type = "work" 
