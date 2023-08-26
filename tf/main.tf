@@ -5,16 +5,20 @@ locals {
       { 
         type = "system" 
         name = "sys1"
-        cpu_cores = 4
-        memory = 
+        cores = 4
+        memory = 4096
       },
       { 
         type = "work" 
         name = "wrkr1"
+        cores = 4
+        memory = 4096
       },
       { 
         type = "work" 
         name = "wrkr2"
+        cores = 4
+        memory = 4096
       }
     ]
 }
@@ -49,10 +53,10 @@ resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
   os_type = "ubuntu"
   balloon = 0
   bios = "seabios"
-  cores = 4
+  cores = each.value.cores
   sockets = 1
   cpu = "host"
-  memory = 4096
+  memory = each.value.memory
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
   disk {
