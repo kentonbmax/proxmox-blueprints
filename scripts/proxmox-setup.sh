@@ -5,4 +5,4 @@ pveum user add terraform@pve
 pveum aclmod / -user terraform@pve -role TerraformProv
 
 # Set Power State Here 
-echo "@reboot echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
+echo "@reboot  root  echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
