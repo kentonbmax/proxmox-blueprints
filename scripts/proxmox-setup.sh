@@ -8,5 +8,5 @@ pveum user token add terraform@pve tftoken --privsep=0
 
 
 
-# Set Power State Here 
-# todo..
+# Set Power State
+echo "@reboot  root  echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
