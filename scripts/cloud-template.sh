@@ -15,6 +15,8 @@ wget -nc $image
 
 value=$(basename $image)
 
+apt install qemu-img
+
 qemu-img resize $value 8g
 # configure ansible?
 read -r -p 'Setup for Asible? (y|n): ' ansb
