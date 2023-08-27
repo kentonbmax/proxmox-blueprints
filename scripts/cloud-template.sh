@@ -37,4 +37,4 @@ qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
 qm set 9001 --ide2 $full_storage:cloudinit
 qm set 9001 --boot c --bootdisk scsi0
 qm set 9001 --serial0 socket --vga serial0
-qm set 9001 --agent enabled=1
+qm set 9001 --agent 1
