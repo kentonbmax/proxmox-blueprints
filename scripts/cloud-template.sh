@@ -16,10 +16,12 @@ wget -nc $image
 
 value=$(basename $image)
 
-apt install qemu-img libguestfs-tools
+apt install qemu-img 
+apt install libguestfs-tools
 
+# resize to something usable
+echo 'resizing image to 8gig'
 qemu-img resize $value 8g
-
 
 virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
@@ -46,3 +48,4 @@ qm set 9001 --ide2 $full_storage:cloudinit
 qm set 9001 --boot c --bootdisk scsi0
 qm set 9001 --serial0 socket --vga serial0
 qm set 9001 --agent 1
+qm set 123 --ipconfig0 ip=dhcp
