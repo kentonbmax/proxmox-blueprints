@@ -48,4 +48,4 @@ qm set 9001 --ide2 $full_storage:cloudinit
 qm set 9001 --boot c --bootdisk scsi0
 qm set 9001 --serial0 socket --vga serial0
 qm set 9001 --agent 1
-qm set 123 --ipconfig0 ip=dhcp
+qm set 9001 --ipconfig0 ip=dhcp
