@@ -26,7 +26,7 @@ then
 fi
 
 # setup cloud image for TF and Ansible?
-read -r -p 'Setup Proxmox? (y|n): ' image
+read -r -p 'Setup Ubuntu Cloud Image Template? (y|n): ' image
 if [[ $image == 'y' ]]
 then
     source "cloud-template.sh"
