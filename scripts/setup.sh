@@ -1,6 +1,6 @@
 #!/bin/bash
 
-base_url=https://github.com/kentonbmax/proxmox-IaC/tree/main/scripts
+base_url=https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/
 # Set the current date
 current_date=$(date +%Y-%m-%d)
  
@@ -19,7 +19,7 @@ fi
 chmod +x *.sh
 
 # setup proxmox?
-read -r -p 'Setup Proxmox? (y|n): ' setup
+read -r -p 'Setup Proxmox? Note - Restart required for powerstate! (y|n): ' setup
 if [[ $setup == 'y' ]]
 then
     source "proxmox-setup.sh"
