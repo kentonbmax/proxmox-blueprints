@@ -16,7 +16,7 @@ wget -nc $image
 
 value=$(basename $image)
 
-apt install qemu-img 
+apt install qemu-utils 
 apt install libguestfs-tools
 
 # resize to something usable
