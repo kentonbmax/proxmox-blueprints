@@ -7,17 +7,27 @@ current_date=$(date +%Y-%m-%d)
 # Print the current date
 echo "The current date is: $current_date"
 
-
-# configure ansible?
+# pull latest scripts?
 read -r -p 'Get latest scripts? (y|n): ' scrips
 if [[ $scrips == 'y' ]]
 then
-    wget "$base_url/proxmox-setup.sh"
-    wget "$base_url/cloud-template.sh"
-    wget "$base_url/setup-ansible-image.sh"
+    wget -nc "$base_url/proxmox-setup.sh"
+    wget -nc "$base_url/cloud-template.sh"
+    wget -nc "$base_url/setup-ansible-image.sh"
 fi
 
 chmod +x *.sh
 
-source "proxmox-setup.sh"
-source "cloud-template.sh"
+# setup proxmox?
+read -r -p 'Setup Proxmox? (y|n): ' setup
+if [[ $setup == 'y' ]]
+then
+    source "proxmox-setup.sh"
+fi
+
+# setup cloud image for TF and Ansible?
+read -r -p 'Setup Proxmox? (y|n): ' image
+if [[ $image == 'y' ]]
+then
+    source "cloud-template.sh"
+fi
