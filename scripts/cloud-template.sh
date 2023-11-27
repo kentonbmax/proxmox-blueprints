@@ -30,7 +30,7 @@ virt-customize -a $value --install qemu-guest-agent
 read -r -p 'Setup for Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]]
 then
-    source "setup-ansible-image.sh"
+    source "ansible-image.sh"
 fi
 
 # we might be on different storage types
