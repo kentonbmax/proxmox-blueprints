@@ -2,6 +2,13 @@
 
 echo "setting up ansible for ${value}"
 
+# grab public key
+read -r -p 'Enter Ansible pub key?: ' key
+if [ $key -n ]
+then
+    echo "$key" > /root/.ssh/ansible.pub
+fi
+
 virt-customize -a $value --run-command 'useradd --shell /bin/bash ansible'
 virt-customize -a $value --run-command 'mkdir -p /home/ansible/.ssh'
 virt-customize -a $value --ssh-inject ansible:file:/root/.ssh/ansible.pub
