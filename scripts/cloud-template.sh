@@ -20,7 +20,6 @@ apt install qemu-img libguestfs-tools
 
 qemu-img resize $value 8g
 
-
 virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 
