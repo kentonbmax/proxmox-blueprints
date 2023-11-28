@@ -1,6 +1,6 @@
     #!/bin/bash
 
-    base_url=https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/
+    base_url=https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts
     # Set the current date
     current_date=$(date +%Y-%m-%d)
     
@@ -9,15 +9,15 @@
 
     # pull latest scripts?
     read -r -p 'Run with Ansible? (y|n): ' scrips
-    if [[ $scrips != 'y' ]]
+    if [[ $scrips == 'y' ]]
     then
         # grab public key
         read -r -p 'Enter Ansible pub key?: ' key
-        if [ $key -n ]
+        if [ -z "$key" ]
         then
             echo "$key" > /root/.ssh/ansible.pub
             echo "Ansible pub setup."
-            exit 1
+            exit 0
         fi
     fi
 
