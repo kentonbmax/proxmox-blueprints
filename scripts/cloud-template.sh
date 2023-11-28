@@ -16,7 +16,10 @@ wget -nc $image
 
 value=$(basename $image)
 
-apt install --assume-yes qemu-utils libguestfs-tools 
+echo "setting up $value"
+
+apt install --assume-yes qemu-utils 
+apt install --no-install-recommends --no-install-suggests libguestfs-tools 
 
 # resize to something usable
 echo 'resizing image to 8gig'
