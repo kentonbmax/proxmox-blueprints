@@ -13,9 +13,9 @@
     then
         # grab public key
         read -r -p 'Enter Ansible pub key?: ' key
-        if [ -z "$key" ]
+        if ! [ -z "${key}" ]
         then
-            echo "$key" > /root/.ssh/ansible.pub
+            echo "$key" > ~.ssh/ansible.pub
             echo "Ansible pub setup."
             exit 0
         fi
