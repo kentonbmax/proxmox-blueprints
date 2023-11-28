@@ -1,7 +1,3 @@
-#!/bin/bash
-
-echo "using no subscription repos~!"
-deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription 
 # Install guest agent
 apt update
 apt install qemu-guest-agent
@@ -14,6 +10,8 @@ pveum aclmod /vms -user terraform@pve -role PVEAdmin
 
 pveum user token add terraform@pve tftoken --privsep=0
 # todo role need storage access?
+
+
 
 # Set Power State
 echo "@reboot  root  echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
