@@ -1,3 +1,6 @@
+#!/bin/bash
+echo "using no subscription repos~!"
+deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription 
 # Install guest agent
 apt update
 apt install qemu-guest-agent
