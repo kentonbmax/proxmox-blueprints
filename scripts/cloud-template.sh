@@ -16,8 +16,11 @@ wget -nc $image
 
 value=$(basename $image)
 
-apt install qemu-img libguestfs-tools
+apt install qemu-utils 
+apt install libguestfs-tools
 
+# resize to something usable
+echo 'resizing image to 8gig'
 qemu-img resize $value 8g
 
 virt-customize -a $value --update
@@ -27,7 +30,7 @@ virt-customize -a $value --install qemu-guest-agent
 read -r -p 'Setup for Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]]
 then
-    source "setup-ansible-image.sh"
+    source "ansible-image.sh"
 fi
 
 # we might be on different storage types
@@ -44,4 +47,9 @@ qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
 qm set 9001 --ide2 $full_storage:cloudinit
 qm set 9001 --boot c --bootdisk scsi0
 qm set 9001 --serial0 socket --vga serial0
+
+# enable guest agent 1
 qm set 9001 --agent 1
+
+# set dhcp
+qm set 9001 --ipconfig0 ip=dhcp
