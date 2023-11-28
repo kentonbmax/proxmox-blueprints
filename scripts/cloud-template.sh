@@ -19,7 +19,7 @@ value=$(basename $image)
 echo "setting up $value"
 
 apt install --assume-yes qemu-utils 
-apt install --no-install-recommends --no-install-suggests libguestfs-tools 
+apt install --assume-yes --no-install-recommends --no-install-suggests libguestfs-tools 
 
 # resize to something usable
 echo 'resizing image to 8gig'
