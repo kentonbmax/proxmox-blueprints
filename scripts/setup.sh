@@ -23,7 +23,7 @@
 
     wget -nc "$base_url/proxmox-setup.sh"
     wget -nc "$base_url/cloud-template.sh"
-    wget -nc "$base_url/setup-ansible-image.sh"
+    wget -nc "$base_url/ansible-image.sh"
 
     chmod +x *.sh
 
