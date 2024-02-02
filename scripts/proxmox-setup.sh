@@ -22,7 +22,7 @@ then
     echo "powerstate must be a valid value (ondemand|performance|powersave)"
     exit 0
 else
-    echo "@reboot  root  echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
+    echo "@reboot  root  echo "$pstate" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
 fi
 
 # set hault timer
