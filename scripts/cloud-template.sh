@@ -1,20 +1,14 @@
 #!/bin/bash
-cat << "EOF"
-######                       #     #                                       #     #                                   
-#     # #####   ####  #    # ##   ##  ####  #    #                         #     # #####  #    # #    # ##### #    # 
-#     # #    # #    #  #  #  # # # # #    #  #  #                          #     # #    # #    # ##   #   #   #    # 
-######  #    # #    #   ##   #  #  # #    #   ##      ##### ##### #####    #     # #####  #    # # #  #   #   #    # 
-#       #####  #    #   ##   #     # #    #   ##                           #     # #    # #    # #  # #   #   #    # 
-#       #   #  #    #  #  #  #     # #    #  #  #                          #     # #    # #    # #   ##   #   #    # 
-#       #    #  ####  #    # #     #  ####  #    #                          #####  #####   ####  #    #   #    ####  
-EOF
+
 
 image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
-# no clobber
-wget -nc $image
+mkdir images
 
-value=$(basename $image)
+# no clobber
+wget -nc $image -p images
+
+value=images/$(basename $image)
 
 echo "setting up $value"
 
