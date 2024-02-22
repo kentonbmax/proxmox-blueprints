@@ -22,6 +22,8 @@ virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 
 # configure ansible?
+echo "----------------------------------"
+echo "Note - you must setup your ansible pub first."
 read -r -p 'Setup template with Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]]
 then
