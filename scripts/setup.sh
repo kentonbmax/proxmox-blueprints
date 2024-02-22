@@ -31,8 +31,16 @@ fi
 wget "$base_url/proxmox-setup.sh"
 wget "$base_url/cloud-template.sh"
 wget "$base_url/ansible-image.sh"
+wget "$base_url/terraform-setup.sh"
 
 chmod +x *.sh
+
+# setup proxmox?
+read -r -p 'Setup Terrafrom role and a token? (y|n): ' tfsetup
+if [[ $tfsetup == 'y' ]]
+then
+    source "terraform-setup.sh"
+fi
 
 # setup proxmox?
 read -r -p 'Setup Proxmox? Note - Restart required for powerstate! (y|n): ' setup
