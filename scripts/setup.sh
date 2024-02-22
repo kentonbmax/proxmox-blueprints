@@ -22,7 +22,6 @@ then
     then
         echo "$key" > ~/.ssh/ansible.pub
         echo "Ansible pub setup."
-        exit 0
     fi
 fi
 
