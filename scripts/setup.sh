@@ -18,7 +18,7 @@ if [[ $scripts == 'y' ]]
 then
     # grab public key
     echo "If you want to run ansible on your vms etc. create a new pub/private key on your host"
-    echo "---    ---
+    echo "---    ---"
     read -r -p 'Enter Ansible pub key?: ' key
     if ! [ -z "${key}" ]
     then
