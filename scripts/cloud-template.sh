@@ -50,3 +50,6 @@ qm set 9001 --agent 1
 
 # set dhcp
 qm set 9001 --ipconfig0 ip=dhcp
+
+echo "Setup is complete!" 
+echo "You should always test your image before you convert it to a template"
