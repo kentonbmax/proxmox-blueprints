@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
 mkdir images
@@ -23,7 +22,7 @@ virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 
 # configure ansible?
-read -r -p 'Setup for Asible? (y|n): ' ansb
+read -r -p 'Setup template with Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]]
 then
     source "ansible-image.sh"
