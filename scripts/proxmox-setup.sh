@@ -36,6 +36,7 @@ echo 50000 > /sys/module/kvm/parameter/halt_poll_ns
 # intel xeon 3rd gen or newer
 echo 8 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages
 
+# handle large pages
 mkdir /dev/hugepage1G
 
 mount -t hugetlbfs -o pagesize=1G none /dev/hugepage1G

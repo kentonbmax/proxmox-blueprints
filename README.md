@@ -1,7 +1,7 @@
 <figure>
   <img
   src="assets/proxmos.png"
-  alt="ProxMox IaC">
+  alt="ProxMox Blueprints">
   <figcaption>MDN Logo</figcaption>
 </figure>
 
@@ -43,4 +43,9 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 
 ## Other Work
 [Learn Typescript Node Templates](https://learntnt.com)
+
+## Future
+
+* ansible roles   
+   * vm template
 
