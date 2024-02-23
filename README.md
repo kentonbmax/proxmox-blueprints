@@ -2,18 +2,18 @@
   <img
   src="assets/proxmos.png"
   alt="ProxMox Blueprints">
-  <figcaption>MDN Logo</figcaption>
+  <figcaption></figcaption>
 </figure>
 
-# Proxmox-IaC
-Create ProxMox VM templates from Cloud Images and use terraform to replicate. 
+# Proxmox-Blueprints
 
 # Goals
-- Infrastructure as Code
+- Automation for new servers.
+- Infrastructure as Code.
 - Build more, rely less on UI.
 - Ease of use. 
 
-# Hardware
+## Tested Hardware
 - Dell Optiplex 5060 and a 5050
 - Dell 7810T - The dual cpu setup and ability to accept 2400 DDR4 ram makes this a prime choice for ProxMox Hypervisor
 - Z6 G4 - xeon gold
