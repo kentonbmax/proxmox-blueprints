@@ -1,7 +1,7 @@
 <figure>
   <img
   src="assets/proxmos.png"
-  alt="ProxMox IaC">
+  alt="ProxMox Blueprints">
   <figcaption>MDN Logo</figcaption>
 </figure>
 
@@ -14,27 +14,26 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 - Ease of use. 
 
 # Hardware
+- Dell Optiplex 5060 and a 5050
 - Dell 7810T - The dual cpu setup and ability to accept 2400 DDR4 ram makes this a prime choice for ProxMox Hypervisor
+- Z6 G4 - xeon gold
 
 ## Getting Started
 
-### Pre-Requisits
+### Setup Script
+* Configure Proxmox Low Power Mode
+* Add Ansible pub key
+* Setup Terraform Token
+* Create a VM Template
 
-### Creating a VM Template
-> The scripts in the Scripts folder are designed to run from the proxmox shell.
-1. Grab your ansible ssh public key. Put it in a file, `~/.ssh/ansible.pub` on proxmox
-1. Transfer the contents of the script to your proxmox using the following:
-   `wget https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/cloud-template.sh`
-   `wget https://raw.githubusercontent.com/kentonbmax/proxmox-IaC/main/scripts/setup-ansible-image.sh`
+> ----------------------------------------------------------------------------
+The scripts in the Scripts folder are designed to run from the proxmox shell.
+
+1. Grab your local ansible ssh public key. Typically, `~/.ssh/ansible.pub`.
+1. Download setup.sh:
+   `wget https://raw.githubusercontent.com/kentonbmax/proxmox-blueprints/main/scripts/setup.sh`
 1. Give permission `chmod +x *.sh`
-1. Run `./cloud-template.sh`
-1. (Optional) You will be promted to setup Ansible user
-   1. Create in the home directory a 4096 rsa key for ssh in a file named ansbile `ssh-keygen -t rsa -b 4096`
-1. GUI - CloudInit tab set networking DHCP = true
-1. Right click 9001 and convert to template. 
-1. Ready to clone. See [TF Section](tf/README.md)
-
-   
+1. Run `./setup.sh`   
    
 ## References and motivations
 - [Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
@@ -43,4 +42,11 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 
 ## Other Work
 [Learn Typescript Node Templates](https://learntnt.com)
+
+## Future
+* ansible roles   
+   * vm template
+* Create iso file with semver to download all your isos. 
+
+
 

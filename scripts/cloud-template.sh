@@ -1,20 +1,13 @@
 #!/bin/bash
-cat << "EOF"
-######                       #     #                                       #     #                                   
-#     # #####   ####  #    # ##   ##  ####  #    #                         #     # #####  #    # #    # ##### #    # 
-#     # #    # #    #  #  #  # # # # #    #  #  #                          #     # #    # #    # ##   #   #   #    # 
-######  #    # #    #   ##   #  #  # #    #   ##      ##### ##### #####    #     # #####  #    # # #  #   #   #    # 
-#       #####  #    #   ##   #     # #    #   ##                           #     # #    # #    # #  # #   #   #    # 
-#       #   #  #    #  #  #  #     # #    #  #  #                          #     # #    # #    # #   ##   #   #    # 
-#       #    #  ####  #    # #     #  ####  #    #                          #####  #####   ####  #    #   #    ####  
-EOF
 
 image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
-# no clobber
-wget -nc $image
+mkdir images
 
-value=$(basename $image)
+# no clobber
+wget -nc $image -p images
+
+value=images/$(basename $image)
 
 echo "setting up $value"
 
@@ -29,7 +22,9 @@ virt-customize -a $value --update
 virt-customize -a $value --install qemu-guest-agent
 
 # configure ansible?
-read -r -p 'Setup for Asible? (y|n): ' ansb
+echo "----------------------------------"
+echo "Note - you must setup your ansible pub first."
+read -r -p 'Setup template with Asible? (y|n): ' ansb
 if [[ $ansb == 'y' ]]
 then
     source "ansible-image.sh"
@@ -55,3 +50,6 @@ qm set 9001 --agent 1
 
 # set dhcp
 qm set 9001 --ipconfig0 ip=dhcp
+
+echo "Setup is complete!" 
+echo "You should always test your image before you convert it to a template"
