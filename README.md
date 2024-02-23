@@ -48,4 +48,7 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 
 * ansible roles   
    * vm template
+* Create iso file with semver to download all your isos. 
+
+
 
