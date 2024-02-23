@@ -47,6 +47,3 @@ The scripts in the Scripts folder are designed to run from the proxmox shell.
 * ansible roles   
    * vm template
 * Create iso file with semver to download all your isos. 
-
-
-
