@@ -20,13 +20,12 @@ Create ProxMox VM templates from Cloud Images and use terraform to replicate.
 
 ## Getting Started
 
-### Pre-Requisits
-
 ### Setup Script
 * Configure Proxmox Low Power Mode
 * Add Ansible pub key
 * Setup Terraform Token
 * Create a VM Template
+
 > ----------------------------------------------------------------------------
 The scripts in the Scripts folder are designed to run from the proxmox shell.
 
@@ -45,7 +44,6 @@ The scripts in the Scripts folder are designed to run from the proxmox shell.
 [Learn Typescript Node Templates](https://learntnt.com)
 
 ## Future
-
 * ansible roles   
    * vm template
 * Create iso file with semver to download all your isos. 
