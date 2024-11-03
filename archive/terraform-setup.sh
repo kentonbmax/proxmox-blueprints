@@ -6,5 +6,6 @@ pveum role add TerraformProv -privs "Datastore.AllocateSpace Datastore.Audit Poo
 pveum user add terraform@pve
 pveum aclmod / -user terraform@pve -role TerraformProv
 pveum aclmod /vms -user terraform@pve -role PVEAdmin
+pveum acl modify / -user terraform@pve -role PVESDNUser
 
 pveum user token add terraform@pve tftoken --privsep=0

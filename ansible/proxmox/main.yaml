@@ -1,0 +1,18 @@
+---
+- name: Setup True Nas
+  hosts: nas
+  remote_user: root
+  var_files:
+    - ../vars/pve.yaml
+  vars:
+    run_ansible: True
+    
+
+  tasks:
+  # You can use shell to run other executables to perform actions inline
+  - name: Run expect to wait for a successful PXE boot via out-of-band CIMC
+    ansible.builtin.shell: |
+      apt update
+      apt install qemu-guest-agent cpufrequtils
+    args:
+      executable: /usr/bin/expectf
