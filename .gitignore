@@ -13,3 +13,7 @@
 *.tfstate
 *.tfstate.*
 test.sh
+
+# ansible
+
+**/hosts.ini

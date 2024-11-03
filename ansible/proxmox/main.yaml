@@ -46,7 +46,7 @@
   - name: Inject SSH public key for ansible
     community.libvirt.virt:
       name: "{{ vm_name }}"
-      command: "mkdir -p /home/ansible/.ssh && echo '{{ lookup('file', '/root/.ssh/ansible.pub') }}' > /home/ansible/.ssh/authorized_keys"
+      command: "mkdir -p /home/ansible/.ssh && echo '{{ lookup('file', '/root/.ssh/rsa.pub') }}' > /home/ansible/.ssh/authorized_keys"
       state: present
 
   - name: Change ownership of ansible home directory
