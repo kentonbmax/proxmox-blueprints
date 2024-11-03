@@ -5,7 +5,7 @@ echo "***_____------\ Welcome to Proxmox Setup /------______**"
 echo "**** Updating proxmox and install dependencies"
 
 apt update
-apt install --assume-yes qemu-utils 
+apt install --assume-yes qemu-utils qemu-guest-agent cpufrequtils
 apt install --assume-yes --no-install-recommends --no-install-suggests libguestfs-tools 
 
 # ask for pub key
