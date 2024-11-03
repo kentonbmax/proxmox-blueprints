@@ -1,15 +1,26 @@
 #!/bin/bash
 
-echo "***_____------\ Welcome to Proxmox Ansible Setup /------______**" 
-    read -r -p 'Enter Ansible pub key?: ' key
-    if ! [ -z "${key}" ]
-    then
-        echo "$key" > ~/.ssh/ansible.pub
-        echo "Ansible pub setup."
-    fi
+
+echo "***_____------\ Welcome to Proxmox Setup /------______**" 
+echo "**** Updating proxmox and install dependencies"
+
+apt update
+apt install --assume-yes qemu-utils 
+apt install --assume-yes --no-install-recommends --no-install-suggests libguestfs-tools 
+
+# ask for pub key
+read -r -p 'Enter ssh pub key?: ' key
+if ! [ -z "${key}" ]
+then
+    echo "$key" > ~/.ssh/rsa.pub
 fi
 
+# Storage type
+# we might be on different storage types
+read -r -p 'Storage Type? (local-zfs|local-lvm|enter_yours): ' storage_type
+echo 'You set storage type: ' $storage_type
 
+# Terraform Role
 read -r -p 'Setup Terrafrom role and a token? (y|n): ' tfsetup
 if [[ $tfsetup == 'y' ]]
 then
