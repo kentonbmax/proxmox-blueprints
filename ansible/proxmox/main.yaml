@@ -1,6 +1,7 @@
 ---
 - name: Setup True Nas
   hosts: nas
+  gather_facts: no
   remote_user: root
   var_files:
     - ../vars/pve.yaml
@@ -10,9 +11,64 @@
 
   tasks:
   # You can use shell to run other executables to perform actions inline
-  - name: Run expect to wait for a successful PXE boot via out-of-band CIMC
-    ansible.builtin.shell: |
-      apt update
-      apt install qemu-guest-agent cpufrequtils
-    args:
-      executable: /usr/bin/expectf
+  - name: Update apt package index
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: Install required packages
+    ansible.builtin.apt:
+      name:
+        - qemu-utils
+        - qemu-guest-agent
+        - cpufrequtils
+      state: present
+      force_apt_get: yes
+
+  - name: Install libguestfs-tools without recommended/suggested packages
+    ansible.builtin.apt:
+      name: libguestfs-tools
+      state: present
+      install_recommends: no
+      install_suggests: no
+
+  - name: Create ansible user
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "useradd --shell /bin/bash ansible"
+      state: present
+
+  - name: Create .ssh directory for ansible
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "mkdir -p /home/ansible/.ssh"
+      state: present
+
+  - name: Inject SSH public key for ansible
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "mkdir -p /home/ansible/.ssh && echo '{{ lookup('file', '/root/.ssh/ansible.pub') }}' > /home/ansible/.ssh/authorized_keys"
+      state: present
+
+  - name: Change ownership of ansible home directory
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "chown -R ansible:ansible /home/ansible"
+      state: present
+
+  - name: Create sudoers file for ansible
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "echo 'ansible ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/ansible"
+      state: present
+
+  - name: Set sudoers file permissions
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "chmod 0440 /etc/sudoers.d/ansible"
+      state: present
+
+  - name: Clear /etc/machine-id
+    community.libvirt.virt:
+      name: "{{ vm_name }}"
+      command: "sh -c 'echo -n > /etc/machine-id'"
+      state: present
