@@ -34,7 +34,7 @@ then
     pveum acl modify / -user terraform@pve -role PVESDNUser
 fi
 
-if if [[ $tfsetup == 'y' ]]
+if [[ $tfsetup == 'y' ]]
 then
     echo "**** Grab your token and user"
     pveum user token add terraform@pve tftoken --privsep=0
