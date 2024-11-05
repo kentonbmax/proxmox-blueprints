@@ -1,9 +1,9 @@
 ---
 - name: Setup True Nas
-  hosts: nas
+  hosts: proxmox
   gather_facts: no
   remote_user: root
-  var_files:
+  vars_files:
     - ../vars/pve.yaml
   vars:
     run_ansible: True

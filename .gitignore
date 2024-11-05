@@ -17,3 +17,8 @@ test.sh
 # ansible
 
 **/hosts.ini
+**/venv/
+**/bin/
+**/include/
+**/lib/
+**/pyvenv.cfg
