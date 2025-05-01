@@ -10,15 +10,14 @@ apt install qemu-guest-agent cpufrequtils
 
 # setup powerstate
 # check for existing powerstate
-$pattern="^\(powersave|performance|ondemand\)"
 read -r -p 'Set powerstate default is ondemand(ondemand|performance|powersave): ' pstate
-if [[ -z "{$pstate}" || $pstate =~ $pattern ]]
+if [[ $pstate =~ ^(powersave|performance|ondemand)$ ]];
 then
-    echo "powerstate must be a valid value (ondemand|performance|powersave)"
-    exit 0
-else
     echo "Setting powerstate to $pstate"
     echo "@reboot  root  echo "$pstate" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor" >> /etc/crontab
+else
+    echo "powerstate must be a valid value (ondemand|performance|powersave)"
+    exit 0
 fi
 
 # set hault timer
