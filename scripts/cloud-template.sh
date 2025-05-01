@@ -5,7 +5,7 @@ image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.
 mkdir images
 
 # no clobber
-wget -nc $image -p images
+wget -nc --directory-prefix=images $image
 
 value=images/$(basename $image)
 
