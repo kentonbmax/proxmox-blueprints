@@ -61,8 +61,6 @@ resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
     slot     = "ide2"
     type     = "cloudinit"
     storage  = "local-lvm"
-    # passthrough = true
-    # disk_file   = "local-lvm:vm-9001-cloudinit,media=cdrom"
   }
 
   vga {
