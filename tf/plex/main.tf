@@ -4,8 +4,8 @@ locals {
   vms = [
     {
       name      = "plex"
-      cores     = 8
-      memory    = 10240
+      cores     =  3
+      memory    = 5120
       disk_size = "28G"
     }
   ]
