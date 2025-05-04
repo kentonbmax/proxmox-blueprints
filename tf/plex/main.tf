@@ -36,6 +36,7 @@ resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
   # this now reaches out to the vars file. I could've also used this var above in the pm_api_url setting but wanted to spell it out up there. target_node is different than api_url. target_node is which node hosts the template and thus also which node will host the new VM. it can be different than the host you use to communicate with the API. the variable contains the contents "prox-1u"
   target_node = var.proxmox_host
   clone       = var.proxmox_template_name
+  autostart   = true
   full_clone  = true # clone will not be tied to template 
   agent       = 1    # guest agent needed to get ip address
   os_type     = "ubuntu" # this is the os type of the template. I think this is the same as the os_type in the template
