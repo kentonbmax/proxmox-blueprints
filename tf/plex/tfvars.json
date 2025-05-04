@@ -1,0 +1,4 @@
+{
+    "proxmox_storage": "local",
+    "tf_log": "TRACE"
+}

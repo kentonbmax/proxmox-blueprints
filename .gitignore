@@ -16,9 +16,12 @@ test.sh
 
 # ansible
 
-**/hosts.ini
+#**/host.ini
 **/venv/
 **/bin/
 **/include/
 **/lib/
 **/pyvenv.cfg
+tf/jellyfin
+
+hosts.ini

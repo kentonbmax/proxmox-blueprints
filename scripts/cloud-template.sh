@@ -5,7 +5,7 @@ image=https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.
 mkdir images
 
 # no clobber
-wget -nc $image -p images
+wget -nc -p images $image
 
 value=images/$(basename $image)
 

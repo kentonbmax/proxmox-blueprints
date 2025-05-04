@@ -1,0 +1,78 @@
+---
+- name: Mount NFS Share
+  hosts: webservers
+  become: true
+  vars:
+    shared_path_server: "//{{ lookup('env', 'NAS_IP') }}"
+    mount_path_movies: "/mnt/movies"
+    mount_path_tv: "/mnt/tv"
+    nas_path_movies: "Movies"
+    nas_path_tv: "TV"
+  tasks:
+    - name: Install dependencies for NFS
+      apt:
+        name:
+          - nfs-kernel-server
+          - cifs-utils
+          - nfs-common
+          - gpg
+          - ca-certificates 
+          - software-properties-common 
+          - apt-transport-https
+        state: present
+    
+    - name: Remove useless packages from the cache
+      apt:
+        autoclean: yes
+
+    - name: Ensure mount point exists
+      ansible.builtin.file:
+        path: "/mnt/movies"
+        state: directory
+        mode: '0755'
+
+    - name: Ensure mount point exists
+      ansible.builtin.file:
+        path: "/mnt/tv"
+        state: directory
+        mode: '0755'
+
+    - name: Print the gateway for each host when defined
+      ansible.builtin.debug:
+        msg: "//{{ shared_path_server }}/{{ nas_path_movies }}"
+
+    - name: mount movies
+      ansible.posix.mount: 
+        fstype="cifs"
+        opts="credentials=/root/.smbcredentials,vers=3.0"
+        src="//{{ shared_path_server }}/{{ nas_path_movies }}"
+        name="/mnt/movies"
+        state=ephemeral
+
+    - name: mount tv
+      ansible.posix.mount: 
+        fstype="cifs"
+        opts="credentials=/root/.smbcredentials,vers=3.0"
+        src="//{{ shared_path_server }}/{{ nas_path_tv }}"
+        name="/mnt/tv"
+        state=ephemeral
+
+    - name: install plex key 
+      ansible.builtin.shell: |
+        curl -fsSL https://downloads.plex.tv/plex-keys/PlexSign.key \
+         | sudo gpg --dearmor -o /usr/share/keyrings/plex.gpg
+      become: true
+    - name: add plex repo
+      ansible.builtin.shell: |
+        echo "deb [arch=amd64,arm64,ppc64el signed-by=/usr/share/keyrings/plex.gpg] https://downloads.plex.tv/repo/deb public main" | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+      become: true
+
+    - name: Update repositories cache and install "foo" package
+      ansible.builtin.apt:
+        name: "*"
+        update_cache: yes
+
+    - name: Install plex
+      ansible.builtin.apt:
+        name: plexmediaserver
+        state: present
