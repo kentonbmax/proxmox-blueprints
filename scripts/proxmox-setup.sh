@@ -9,7 +9,7 @@ apt install qemu-guest-agent cpufrequtils
 # todo role need storage access?
 
 # setup powerstate
-# check for existing powerstate)"
+# check for existing powerstate
 read -r -p 'Set powerstate default is ondemand(ondemand|performance|powersave): ' pstate
 if [[ $pstate =~ ^(powersave|performance|ondemand)$ ]];
 then

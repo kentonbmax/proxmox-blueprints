@@ -5,7 +5,8 @@ image=https://cloud-images.ubuntu.com/nobel/current/nobel-server-cloudimg-amd64.
 mkdir images
 
 # no clobber
-wget -nc -p images $image
+wget -nc --directory-prefix=images $image
+
 
 value=images/$(basename $image)
 

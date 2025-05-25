@@ -1,11 +1,12 @@
 #!/bin/bash
 
 override=main
-if [[ -z $branch ]]; then
+if [ -n "$branch" ]; then
     override=$branch
 fi
 
 base_url=https://raw.githubusercontent.com/kentonbmax/proxmox-blueprints/$override/scripts
+echo "***Using branch $branch"
 # Set the current date
 current_date=$(date +%Y-%m-%d)
 
