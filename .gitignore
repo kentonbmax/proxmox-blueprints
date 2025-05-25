@@ -13,3 +13,15 @@
 *.tfstate
 *.tfstate.*
 test.sh
+
+# ansible
+
+#**/host.ini
+**/venv/
+**/bin/
+**/include/
+**/lib/
+**/pyvenv.cfg
+tf/jellyfin
+
+hosts.ini

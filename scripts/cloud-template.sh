@@ -1,11 +1,12 @@
 #!/bin/bash
 
-image=https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+image=https://cloud-images.ubuntu.com/nobel/current/nobel-server-cloudimg-amd64.img
 
 mkdir images
 
 # no clobber
 wget -nc --directory-prefix=images $image
+
 
 value=images/$(basename $image)
 
@@ -36,8 +37,10 @@ echo 'You set storage type: ' $storage_type
 
 full_storage=$storage_type
 
+
 # Create the VM
-qm create 9001 --memory 2048 --name ubuntu2204-ansible --net0 virtio,bridge=vmbr0
+# Reg: https://pve.proxmox.com/pve-docs/qm.1.html
+qm create 9001 --memory 2048 --name ubuntu2404-ansible --net0 virtio,bridge=vmbr0
 qm importdisk 9001 $value $full_storage
 # Configure the VM
 qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
@@ -50,6 +53,8 @@ qm set 9001 --agent 1
 
 # set dhcp
 qm set 9001 --ipconfig0 ip=dhcp
+
+qm set 9001 --template true
 
 echo "Setup is complete!" 
 echo "You should always test your image before you convert it to a template"

@@ -36,9 +36,17 @@ The scripts in the Scripts folder are designed to run from the proxmox shell.
 1. Run `./setup.sh`   
    
 ## References and motivations
+- [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/)
 - [Inject Keys](https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/)
 - [Proxmox Templates](https://pve.proxmox.com/wiki/VM_Templates_and_Clones)
 - [ansible cloud image](https://ronamosa.io/docs/engineer/LAB/proxmox-cloudinit/)
+
+## SSH into VM
+>assume mac or linux...
+
+1. `eval $(ssh-agent)`
+1. `ssh-add {~/.ssh/your_private_key}`
+1. `ssh -o 'StrictHostKeyChecking no' user@host`
 
 ## Other Work
 [Learn Typescript Node Templates](https://learntnt.com)

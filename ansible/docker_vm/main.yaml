@@ -1,0 +1,60 @@
+---
+- name: Install Docker Compose Plugin and Add Docker's GPG Key
+  hosts: webservers
+  become: yes  # Use sudo to run commands as root
+  tasks:
+
+    # Step 1: Add Docker's official GPG key to the system
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    # Step 2: Update apt cache
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    # Step 3: Install required dependencies
+    - name: Install dependencies for Docker (Ubuntu/Debian)
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    # Step 4: Add Docker's APT repository to the sources list
+    - name: Add Docker APT repository for Ubuntu Jammy
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    # Step 5: Install Docker CE (if not installed already)
+    - name: Install Docker CE (if not installed)
+      apt:
+        name: docker-ce
+        state: present
+
+    # Step 6: Install Docker Compose Plugin (v2)
+    - name: Install Docker Compose plugin via APT
+      apt:
+        name: docker-compose-plugin
+        state: present
+
+    # Step 7: Start and enable Docker service
+    - name: Ensure Docker service is started and enabled
+      shell: |
+        sudo systemctl start docker
+        
+
+    # Step 8: Verify Docker Compose plugin installation
+    - name: Verify Docker Compose plugin installation
+      command: docker compose version
+      register: compose_version
+      changed_when: false
+
+    - name: Display Docker Compose version
+      debug:
+        msg: "Docker Compose version is: {{ compose_version.stdout }}"
