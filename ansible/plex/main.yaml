@@ -47,7 +47,7 @@
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_movies }}"
         name="/mnt/movies"
-        state=ephemeral
+        state=present
 
     - name: mount tv
       ansible.posix.mount: 
@@ -55,24 +55,34 @@
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_tv }}"
         name="/mnt/tv"
-        state=ephemeral
+        state=present
+
+    # Check if plex service is already installed
+    - name: Check if Service Exists
+      stat: path=/etc/init.d/plexmediaserver
+      register: service_status
 
     - name: install plex key 
       ansible.builtin.shell: |
         curl -fsSL https://downloads.plex.tv/plex-keys/PlexSign.key \
          | sudo gpg --dearmor -o /usr/share/keyrings/plex.gpg
       become: true
+      when: service_status.stat.exists
+
     - name: add plex repo
       ansible.builtin.shell: |
         echo "deb [arch=amd64,arm64,ppc64el signed-by=/usr/share/keyrings/plex.gpg] https://downloads.plex.tv/repo/deb public main" | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
       become: true
+      when: service_status.stat.exists
 
-    - name: Update repositories cache and install "foo" package
+    - name: Update repositories cache
       ansible.builtin.apt:
         name: "*"
         update_cache: yes
+      when: service_status.stat.exists
 
     - name: Install plex
       ansible.builtin.apt:
         name: plexmediaserver
         state: present
+      when: service_status.stat.exists
