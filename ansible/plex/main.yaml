@@ -1,6 +1,6 @@
 ---
 - name: Mount NFS Share
-  hosts: webservers
+  hosts: plexservers
   become: true
   vars:
     shared_path_server: "//{{ lookup('env', 'NAS_IP') }}"
@@ -39,13 +39,13 @@
 
     - name: Print the gateway for each host when defined
       ansible.builtin.debug:
-        msg: "//{{ shared_path_server }}/{{ nas_path_movies }}"
+        msg: "{{ shared_path_server }}/{{ nas_path_movies }}"
 
     - name: mount movies
       ansible.posix.mount: 
         fstype="cifs"
         opts="credentials=/root/.smbcredentials,vers=3.0"
-        src="//{{ shared_path_server }}/{{ nas_path_movies }}"
+        src="{{ shared_path_server }}/{{ nas_path_movies }}"
         name="/mnt/movies"
         state=ephemeral
 
@@ -53,7 +53,7 @@
       ansible.posix.mount: 
         fstype="cifs"
         opts="credentials=/root/.smbcredentials,vers=3.0"
-        src="//{{ shared_path_server }}/{{ nas_path_tv }}"
+        src="{{ shared_path_server }}/{{ nas_path_tv }}"
         name="/mnt/tv"
         state=ephemeral
 

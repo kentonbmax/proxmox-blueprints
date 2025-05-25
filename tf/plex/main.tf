@@ -17,7 +17,7 @@ variable "proxmox_host" {
 
 # The name of your template
 variable "proxmox_template_name" {
-  default = "ubuntu2204-ansible"
+  default = "ubuntu2404-ansible"
 }
 
 # the storage you want to use. Probably not local. 

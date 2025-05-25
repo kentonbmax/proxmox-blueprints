@@ -1,6 +1,6 @@
 #!/bin/bash
 
-image=https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+image=https://cloud-images.ubuntu.com/nobel/current/nobel-server-cloudimg-amd64.img
 
 mkdir images
 
@@ -39,7 +39,7 @@ full_storage=$storage_type
 
 # Create the VM
 # Reg: https://pve.proxmox.com/pve-docs/qm.1.html
-qm create 9001 --memory 2048 --name ubuntu2204-ansible --net0 virtio,bridge=vmbr0
+qm create 9001 --memory 2048 --name ubuntu2404-ansible --net0 virtio,bridge=vmbr0
 qm importdisk 9001 $value $full_storage
 # Configure the VM
 qm set 9001 --scsihw virtio-scsi-pci --scsi0 $full_storage:vm-9001-disk-0
