@@ -16,3 +16,7 @@
 1. From tf directory run `terraform init`
 1. Run `terraform apply` review the plan and enter "yes" to create. 
 1. Grab a beverage... This takes a few minutes. 
+
+
+## References
+[TF Proxmox Envs](https://registry.terraform.io/providers/bpg/proxmox/latest/docs#environment-variables-summary)

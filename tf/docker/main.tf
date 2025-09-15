@@ -3,16 +3,16 @@
 locals {
   vms = [
     {
-      name      = "aidockr1"
-      cores     = 52
-      memory    = 81920
-      disk_size = "120G"
+      name      = "docker01"
+      cores     =  5
+      memory    = 5120
+      disk_size = "130G"
     }
   ]
 }
 
 variable "proxmox_host" {
-  default = "pve01"
+  default = "pve"
 }
 
 # The name of your template
@@ -22,12 +22,12 @@ variable "proxmox_template_name" {
 
 # the storage you want to use. Probably not local. 
 variable "proxmox_storage" {
-  default = "local-zfs"
+  default = "vms"
 }
 
 # resource is formatted to be "[type]" "[entity_name]" so in this case
 # we are looking to create a proxmox_vm_qemu entity named test_server
-resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
+resource "proxmox_vm_qemu" "vm" {
   for_each = {
     for node in local.vms : node.name => node
   }
@@ -38,30 +38,38 @@ resource "proxmox_vm_qemu" "ubuntu2204-ansible" {
   clone       = var.proxmox_template_name
   full_clone  = true # clone will not be tied to template 
   agent       = 1    # guest agent needed to get ip address
-  os_type     = "ubuntu"
+  os_type     = "ubuntu" # this is the os type of the template. I think this is the same as the os_type in the template
   balloon     = 0
   bios        = "seabios"
   cores       = each.value.cores
   sockets     = 1
-  cpu         = "host"
+  cpu_type    = "host"
   memory      = each.value.memory
   scsihw      = "virtio-scsi-pci"
   bootdisk    = "scsi0"
+  ipconfig0   = "ip=dhcp"  
+
+ # Disk configuration
   disk {
-    slot    = 0
-    size    = each.value.disk_size
-    type    = "scsi"
-    storage = var.proxmox_storage
-    ssd     = 1
+    slot     = "scsi0"
+    size     = each.value.disk_size
+    type     = "disk"
+    storage  = var.proxmox_storage
   }
 
-  # optional
-  # sshkeys = <<EOF
-  #   ${data.rsa_file}
-  # EOF
+  disk {
+    slot     = "ide2"
+    type     = "cloudinit"
+    storage  = "local-lvm"
+  }
+
+  vga {
+    type = "serial0"
+  }
 
   # Network hardware
   network {
+    id     = 0
     model  = "virtio"
     bridge = "vmbr0"
   }
