@@ -4,17 +4,6 @@
   become: yes  # Use sudo to run commands as root
   tasks:
 
-    # Step 1: Add Docker's official GPG key to the system
-    - name: Add Docker's official GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    # Step 2: Update apt cache
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-
     # Step 3: Install required dependencies
     - name: Install dependencies for Docker (Ubuntu/Debian)
       apt:
@@ -22,19 +11,40 @@
           - apt-transport-https
           - ca-certificates
           - curl
-          - software-properties-common
         state: present
 
-    # Step 4: Add Docker's APT repository to the sources list
-    - name: Add Docker APT repository for Ubuntu Jammy
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
-        state: present
+    - name: Create directory for Docker apt keyrings
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
 
-    # Step 5: Install Docker CE (if not installed already)
-    - name: Install Docker CE (if not installed)
+    - name: Download Docker GPG key to /etc/apt/keyrings/docker.asc
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+
+    - name: Set up Docker repository
+      shell: |
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+    - name: Update apt cache after adding Docker repo
       apt:
-        name: docker-ce
+        update_cache: yes
+
+    - name: Update system packages and clean up
+      apt:
+        name:
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+          - docker-ce-cli
+          - docker-ce
         state: present
 
     # Step 6: Install Docker Compose Plugin (v2)
@@ -57,4 +67,28 @@
 
     - name: Display Docker Compose version
       debug:
-        msg: "Docker Compose version is: {{ compose_version.stdout }}"
+        msg: "Docker Compose version is: {{ compose_version.stdout }}" 
+    
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+        state: present  
+
+    - name: Verify user is in docker group
+      command: groups {{ ansible_user }}
+      register: user_groups
+      changed_when: false   
+
+    - name: Deploy registry container
+      docker_container:
+        name: registry
+        image: registry:3
+        state: started
+        restart_policy: always
+        ports:
+          - "5000:5000"
+        volumes:
+          - /opt/registry/data:/var/lib/registry
+        published_ports:

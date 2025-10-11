@@ -47,23 +47,25 @@
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_movies }}"
         name="/mnt/movies"
-        state=present
+        state=mounted
+        boot=true
 
     - name: mount tv
-      ansible.posix.mount: 
+      ansible.posix.mount:
         fstype="cifs"
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_tv }}"
         name="/mnt/tv"
-        state=present
+        state=mounted
+        boot=true
 
     - name: Check Plex service status
       ansible.builtin.service_facts:
       register: services_state
 
-    - name: debug service status
-      ansible.builtin.debug:
-        var: services_state.ansible_facts.services['plexmediaserver.service'].state
+    # - name: debug service status
+    #   ansible.builtin.debug:
+    #     var: services_state.ansible_facts.services['plexmediaserver.service'].state
 
     - name: install plex key 
       ansible.builtin.shell: |
