@@ -8,6 +8,7 @@
     mount_path_tv: "/mnt/tv"
     nas_path_movies: "Movies"
     nas_path_tv: "TV"
+    state: mounted
   tasks:
     - name: Install dependencies for NFS
       apt:
@@ -25,17 +26,17 @@
       apt:
         autoclean: yes
 
-    - name: Ensure mount point exists
-      ansible.builtin.file:
-        path: "/mnt/movies"
-        state: directory
-        mode: '0755'
+    # - name: Ensure mount point exists
+    #   ansible.builtin.file:
+    #     path: "/mnt/movies"
+    #     state: directory
+    #     mode: '0755'
 
-    - name: Ensure mount point exists
-      ansible.builtin.file:
-        path: "/mnt/tv"
-        state: directory
-        mode: '0755'
+    # - name: Ensure mount point exists
+    #   ansible.builtin.file:
+    #     path: "/mnt/tv"
+    #     state: directory
+    #     mode: '0755'
 
     - name: Print the gateway for each host when defined
       ansible.builtin.debug:
@@ -47,7 +48,7 @@
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_movies }}"
         name="/mnt/movies"
-        state=mounted
+        state="{{ state }}"
         boot=true
 
     - name: mount tv
@@ -56,7 +57,7 @@
         opts="credentials=/root/.smbcredentials,vers=3.0"
         src="{{ shared_path_server }}/{{ nas_path_tv }}"
         name="/mnt/tv"
-        state=mounted
+        state="{{ state }}"
         boot=true
 
     - name: Check Plex service status
